@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UHZ-IK-q8K">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <scenes>
+        <!--Borrowed Items-->
+        <scene sceneID="SvN-Vz-nW9">
+            <objects>
+                <tableViewController storyboardIdentifier="listView" id="x1E-oV-6Un" customClass="ListController" customModule="Borrowed" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="FV9-D6-3aJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItemCell" textLabel="6QJ-L2-nos" detailTextLabel="8Jo-N7-JeE" style="IBUITableViewCellStyleSubtitle" id="4mh-zN-q0r">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4mh-zN-q0r" id="KrR-dP-shE">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6QJ-L2-nos">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8Jo-N7-JeE">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="x1E-oV-6Un" id="Jwd-fk-Rnd"/>
+                            <outlet property="delegate" destination="x1E-oV-6Un" id="Dq7-kn-OMC"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Borrowed Items" id="bLs-k1-S5Y">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qkR-bt-nxa">
+                            <connections>
+                                <segue destination="yEv-sR-aK0" kind="show" id="pRh-Xu-Bu1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DY8-qJ-0AU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="447" y="299"/>
+        </scene>
+        <!--New Borrowed Item-->
+        <scene sceneID="Cd9-Qy-bT0">
+            <objects>
+                <viewController storyboardIdentifier="newView" id="yEv-sR-aK0" customClass="NewItemView" customModule="Borrowed" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9zP-tI-ZIb"/>
+                        <viewControllerLayoutGuide type="bottom" id="5Ii-7H-afr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="krx-8M-vgu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="What was borrowed? " minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RC8-67-wwG">
+                                <rect key="frame" x="16" y="95" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description or terms" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="deW-Uj-UVp">
+                                <rect key="frame" x="16" y="171" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="agQ-LC-yXW">
+                                <rect key="frame" x="16" y="238" width="600" height="162"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The type of borrowed item:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laV-LJ-eZU">
+                                <rect key="frame" x="16" y="209" width="568" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Who borrowed the item? " minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sLm-hb-B8z">
+                                <rect key="frame" x="16" y="133" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GnH-eV-aAj">
+                                <rect key="frame" x="16" y="408" width="75" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="r7s-AJ-9eO">
+                                <rect key="frame" x="0.0" y="438" width="600" height="162"/>
+                                <date key="date" timeIntervalSinceReferenceDate="441866430.09370399">
+                                    <!--2015-01-02 04:40:30 +0000-->
+                                </date>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Borrowed Item" id="Gz2-qK-ITa">
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="BuL-lK-wpO"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="XOZ-SP-hxl">
+                            <connections>
+                                <action selector="save:" destination="yEv-sR-aK0" id="JDk-Da-bgF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="borrowerNameText" destination="sLm-hb-B8z" id="eaD-YA-ccB"/>
+                        <outlet property="descText" destination="deW-Uj-UVp" id="mrV-Np-HIv"/>
+                        <outlet property="dueDatePicker" destination="r7s-AJ-9eO" id="vzw-bp-ZdM"/>
+                        <outlet property="itemNameText" destination="RC8-67-wwG" id="S5G-m2-eJx"/>
+                        <outlet property="typePicker" destination="agQ-LC-yXW" id="VbP-QZ-XgM"/>
+                        <outletCollection property="dueDatePicker" destination="r7s-AJ-9eO" id="20Z-A1-rEf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C0s-Jj-cE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1142" y="353"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XzD-J9-D1s">
+            <objects>
+                <navigationController id="UHZ-IK-q8K" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="c5u-Qw-ctj">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="x1E-oV-6Un" kind="relationship" relationship="rootViewController" id="KWk-3N-F5D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gxo-Fe-XPy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-374" y="298"/>
+        </scene>
+    </scenes>
+</document>
