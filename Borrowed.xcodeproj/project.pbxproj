@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		274B7EFD1A57C3E7003F8BBD /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 274B7EFC1A57C3E7003F8BBD /* ItemDetailView.swift */; };
 		277314521A50F1BA0000EB9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277314511A50F1BA0000EB9E /* AppDelegate.swift */; };
 		277314551A50F1BA0000EB9E /* Borrowed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 277314531A50F1BA0000EB9E /* Borrowed.xcdatamodeld */; };
 		2773145A1A50F1BA0000EB9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 277314581A50F1BA0000EB9E /* Main.storyboard */; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		274B7EFC1A57C3E7003F8BBD /* ItemDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 		2773144C1A50F1BA0000EB9E /* Borrowed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Borrowed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		277314501A50F1BA0000EB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		277314511A50F1BA0000EB9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 		277314431A50F1BA0000EB9E = {
 			isa = PBXGroup;
 			children = (
+				274B7EFC1A57C3E7003F8BBD /* ItemDetailView.swift */,
 				27FAE69E1A5652FC00175971 /* ListController.swift */,
 				27FAE69C1A535EB500175971 /* NewItemView.swift */,
 				277314771A50F2870000EB9E /* CoreData.framework */,
@@ -234,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				274B7EFD1A57C3E7003F8BBD /* ItemDetailView.swift in Sources */,
 				277314761A50F2570000EB9E /* ItemRecord.swift in Sources */,
 				27FAE69F1A5652FC00175971 /* ListController.swift in Sources */,
 				277314521A50F1BA0000EB9E /* AppDelegate.swift in Sources */,

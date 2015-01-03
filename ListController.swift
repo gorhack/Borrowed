@@ -12,6 +12,7 @@ import CoreData
 class ListController: UITableViewController {
 
     var itemList = Array<AnyObject>()
+    var selectedItem: ItemRecord?
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -84,6 +85,21 @@ class ListController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        selectedItem = (itemList[indexPath.row] as ItemRecord)
+        
+        println("list view")
+        println(selectedItem?.itemName)
+        
+        // pass the variable
+        ItemDetailView().itemSelected = selectedItem
+        
+        // perform the segue and pre-load the variable
+        self.performSegueWithIdentifier("itemDetailSegue", sender: self)
+    }
 
 
     /*
@@ -121,14 +137,16 @@ class ListController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "itemDetailSegue") {
+            var detailController = segue.destinationViewController as ItemDetailView
+            detailController.itemSelected = selectedItem
+        }
     }
-    */
+
 
 }

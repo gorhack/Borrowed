@@ -31,7 +31,6 @@ class NewItemView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // Do any additional setup after loading the view.
     }
     
@@ -48,9 +47,7 @@ class NewItemView: UIViewController {
         // save data to core data
         
         newItem.itemName = itemNameText.text
-        println(newItem.itemName)
         newItem.borrowerName = borrowerNameText.text
-        println(newItem.borrowerName)
         newItem.desc = descText.text
         newItem.itemTypeID = 0
         newItem.createdDate = NSDate()
