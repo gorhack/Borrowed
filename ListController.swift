@@ -12,7 +12,6 @@ import CoreData
 class ListController: UITableViewController {
 
     var itemList = Array<AnyObject>()
-    var selectedItem: ItemRecord?
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -85,22 +84,6 @@ class ListController: UITableViewController {
         
         return cell
     }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-        selectedItem = (itemList[indexPath.row] as ItemRecord)
-        
-        println("list view")
-        println(selectedItem?.itemName)
-        
-        // pass the variable
-        ItemDetailView().itemSelected = selectedItem
-        
-        // perform the segue and pre-load the variable
-        self.performSegueWithIdentifier("itemDetailSegue", sender: self)
-    }
-
 
     /*
     // Override to support conditional editing of the table view.
@@ -136,15 +119,19 @@ class ListController: UITableViewController {
         return true
     }
     */
-
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "itemDetailSegue") {
-            var detailController = segue.destinationViewController as ItemDetailView
-            detailController.itemSelected = selectedItem
+            var selectedItem: NSManagedObject = itemList[self.tableView.indexPathForSelectedRow()!.row] as NSManagedObject
+            
+            let detailController = segue.destinationViewController as ItemDetailView
+            
+            detailController.selectedItemName = selectedItem.valueForKey("itemName") as String
+            detailController.selectedBorrowerName = selectedItem.valueForKey("borrowerName") as String
+            detailController.selectedDescription = selectedItem.valueForKey("desc") as String
         }
     }
 

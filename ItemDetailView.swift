@@ -10,7 +10,9 @@ import UIKit
 
 class ItemDetailView: UIViewController {
 
-    var itemSelected: ItemRecord?
+    var selectedItemName: String = ""
+    var selectedBorrowerName: String = ""
+    var selectedDescription: String = ""
     
     @IBOutlet weak var itemNameText: UITextField!
     @IBOutlet weak var borrowerNameText: UITextField!
@@ -21,10 +23,7 @@ class ItemDetailView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        println("detail view")
-        println(itemSelected?.itemName)
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,12 +32,9 @@ class ItemDetailView: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        itemNameText.text = itemSelected?.itemName
-        borrowerNameText.text = itemSelected?.borrowerName
-        descriptionText.text = itemSelected?.desc
-        typeIDText.text = itemSelected?.itemTypeID as String
-        createdDateText.text = itemSelected?.createdDate as String
-        dueDateText.text = itemSelected?.dueDate as String
+        itemNameText.text = selectedItemName
+        borrowerNameText.text = selectedBorrowerName
+        descriptionText.text = selectedDescription
     }
     /*
     // MARK: - Navigation
