@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class ListController: UITableViewController {
-
     var itemList = Array<AnyObject>()
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
@@ -127,13 +126,11 @@ class ListController: UITableViewController {
         if (segue.identifier == "itemDetailSegue") {
             var selectedItem: NSManagedObject = itemList[self.tableView.indexPathForSelectedRow()!.row] as NSManagedObject
             
-            let detailController = segue.destinationViewController as ItemDetailView
+            let detailController = segue.destinationViewController as NewItemView
             
             detailController.selectedItemName = selectedItem.valueForKey("itemName") as String
             detailController.selectedBorrowerName = selectedItem.valueForKey("borrowerName") as String
             detailController.selectedDescription = selectedItem.valueForKey("desc") as String
         }
     }
-
-
 }

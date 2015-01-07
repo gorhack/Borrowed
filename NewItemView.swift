@@ -9,8 +9,13 @@
 import UIKit
 import CoreData
 
-class NewItemView: UIViewController {
-
+class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    var selectedItemName: String = ""
+    var selectedBorrowerName: String = ""
+    var selectedDescription: String = ""
+    var typeList: [String] = ["Test 1", "Test 2", "Test 3"]
+    var selectedPicker: String?
     
     @IBOutlet weak var itemNameText: UITextField!
     @IBOutlet weak var borrowerNameText: UITextField!
@@ -30,8 +35,15 @@ class NewItemView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        typePicker.delegate = self
+        typePicker.dataSource = self
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        itemNameText.text = selectedItemName
+        borrowerNameText.text = selectedBorrowerName
+        descText.text = selectedDescription
     }
     
     @IBAction func save(sender: AnyObject) {
@@ -75,6 +87,26 @@ class NewItemView: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Data Source methods:
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return typeList.count
+    }
+    
+    // Delegate methods:
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return typeList[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // set selected item to typeList[row]
+        selectedPicker = typeList[row]
+        
     }
     
     /*
