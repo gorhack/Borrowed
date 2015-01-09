@@ -11,12 +11,16 @@ import CoreData
 
 class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
+    // Variables to load item data for editing
+    var existingItem: NSManagedObject!
     var selectedItemName: String = ""
     var selectedBorrowerName: String = ""
     var selectedDescription: String = ""
-    var typeList: [String] = ["Test 1", "Test 2", "Test 3"]
-    var selectedPicker: String?
+    var selectedPicker: String = ""
     
+    var typeList: [String] = ["Test 1", "Test 2", "Test 3"]
+    
+    // User fields
     @IBOutlet weak var itemNameText: UITextField!
     @IBOutlet weak var borrowerNameText: UITextField!
     @IBOutlet weak var descText: UITextField!
@@ -35,15 +39,27 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+        // Set up type picker
         typePicker.delegate = self
         typePicker.dataSource = self
-        // Do any additional setup after loading the view.
+        
+        // Load existing item
+        if (existingItem != nil) {
+            // set title
+            self.navigationItem.title = "Edit Item"
+            
+            // set labels to local instance
+            itemNameText.text = selectedItemName
+            borrowerNameText.text = selectedBorrowerName
+            descText.text = selectedDescription
+        } else {
+            self.navigationItem.title = "New Item"
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
-        itemNameText.text = selectedItemName
-        borrowerNameText.text = selectedBorrowerName
-        descText.text = selectedDescription
+        
     }
     
     @IBAction func save(sender: AnyObject) {
@@ -52,21 +68,29 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         let context = managedObjectContext!
         let en = NSEntityDescription.entityForName("ItemRecord", inManagedObjectContext: context)
         
-        // create instance of data model
+        // check if item already exists
         
-        var newItem = ItemRecord(entity: en!, insertIntoManagedObjectContext: context)
-        
-        // save data to core data
-        
-        newItem.itemName = itemNameText.text
-        newItem.borrowerName = borrowerNameText.text
-        newItem.desc = descText.text
-        newItem.itemTypeID = 0
-        newItem.createdDate = NSDate()
-        newItem.dueDate = dueDatePicker.date
-        newItem.isCompleted = false
-        newItem.completionDate = nil
-        newItem.isDelete = false
+        if (existingItem != nil) {
+            existingItem.setValue(itemNameText.text, forKey:"itemName")
+            existingItem.setValue(borrowerNameText.text, forKey:"borrowerName")
+            existingItem.setValue(descText.text, forKey:"desc")
+        } else {
+            // create instance of data model
+            
+            var newItem = ItemRecord(entity: en!, insertIntoManagedObjectContext: context)
+            
+            // set data to new instance
+            
+            newItem.itemName = itemNameText.text
+            newItem.borrowerName = borrowerNameText.text
+            newItem.desc = descText.text
+            newItem.itemTypeID = 0
+            newItem.createdDate = NSDate()
+            newItem.dueDate = dueDatePicker.date
+            newItem.isCompleted = false
+            newItem.completionDate = nil
+            newItem.isDelete = false
+        }
         
         // save context
                 
@@ -106,7 +130,6 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // set selected item to typeList[row]
         selectedPicker = typeList[row]
-        
     }
     
     /*
@@ -118,5 +141,4 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         // Pass the selected object to the new view controller.
     }
     */
-
 }

@@ -55,7 +55,7 @@
             </objects>
             <point key="canvasLocation" x="447" y="299"/>
         </scene>
-        <!--New Borrowed Item-->
+        <!--New Item View-->
         <scene sceneID="Cd9-Qy-bT0">
             <objects>
                 <viewController storyboardIdentifier="newView" id="yEv-sR-aK0" customClass="NewItemView" customModule="Borrowed" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,8 +110,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Borrowed Item" id="Gz2-qK-ITa">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="BuL-lK-wpO"/>
+                    <navigationItem key="navigationItem" id="Gz2-qK-ITa">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="XOZ-SP-hxl">
                             <connections>
                                 <action selector="save:" destination="yEv-sR-aK0" id="JDk-Da-bgF"/>

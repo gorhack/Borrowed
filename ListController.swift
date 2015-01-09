@@ -83,33 +83,48 @@ class ListController: UITableViewController {
         
         return cell
     }
-
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return NO if you do not want the specified item to be editable.
         return true
     }
-    */
-
-    /*
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // Rename navigation controller's back button to cancel
+        //self.navigationItem.title = "Cancel"
+    }
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let context = managedObjectContext!
+        
         if editingStyle == .Delete {
             // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
+            itemList.removeAtIndex(indexPath.row)
+            context.deleteObject(itemList[indexPath.row] as NSManagedObject)
+            var error: NSError? = nil
+            // Commit changes to data object
+            if !context.save(&error) {
+                abort()
+            }
+            
+            // Animate deletion
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        } /*else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            
+        } */
     }
-    */
+    
 
-    /*
+    
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
     }
-    */
+    
 
     /*
     // Override to support conditional rearranging of the table view.
@@ -123,7 +138,7 @@ class ListController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "itemDetailSegue") {
+        if (segue.identifier? == "itemDetailSegue") {
             var selectedItem: NSManagedObject = itemList[self.tableView.indexPathForSelectedRow()!.row] as NSManagedObject
             
             let detailController = segue.destinationViewController as NewItemView
@@ -131,6 +146,10 @@ class ListController: UITableViewController {
             detailController.selectedItemName = selectedItem.valueForKey("itemName") as String
             detailController.selectedBorrowerName = selectedItem.valueForKey("borrowerName") as String
             detailController.selectedDescription = selectedItem.valueForKey("desc") as String
+            detailController.existingItem = selectedItem
+            
+            // Rename view controller back button to Cancel
+            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         }
     }
 }
