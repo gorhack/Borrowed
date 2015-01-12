@@ -12,6 +12,8 @@ import CoreData
 class ListController: UITableViewController {
     var itemList = Array<AnyObject>()
     
+    // Set context as the apps Managed Object Context
+    
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -33,7 +35,9 @@ class ListController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         // set up fetch request
+        
         let context = managedObjectContext!
         let freq = NSFetchRequest(entityName: "ItemRecord")
         
@@ -101,17 +105,21 @@ class ListController: UITableViewController {
         let context = managedObjectContext!
         
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            itemList.removeAtIndex(indexPath.row)
+            
+            // Delete the row from the listView and data source
+            
             context.deleteObject(itemList[indexPath.row] as NSManagedObject)
+            itemList.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            
             var error: NSError? = nil
+            
             // Commit changes to data object
+            
             if !context.save(&error) {
                 abort()
             }
-            
-            // Animate deletion
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            //self.tableView.reloadData()
         } /*else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
             
@@ -143,12 +151,18 @@ class ListController: UITableViewController {
             
             let detailController = segue.destinationViewController as NewItemView
             
+            // Pass values to the next view controller
+            
             detailController.selectedItemName = selectedItem.valueForKey("itemName") as String
             detailController.selectedBorrowerName = selectedItem.valueForKey("borrowerName") as String
             detailController.selectedDescription = selectedItem.valueForKey("desc") as String
-            detailController.existingItem = selectedItem
+            detailController.selectedPicker = selectedItem.valueForKey("itemTypeID") as Int
+            detailController.selectedDate = selectedItem.valueForKey("dueDate") as NSDate
+            
+            detailController.existingItem = selectedItem as NSManagedObject
             
             // Rename view controller back button to Cancel
+            
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         }
     }

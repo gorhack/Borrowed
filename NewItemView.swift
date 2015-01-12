@@ -12,15 +12,19 @@ import CoreData
 class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // Variables to load item data for editing
+    
     var existingItem: NSManagedObject!
     var selectedItemName: String = ""
     var selectedBorrowerName: String = ""
     var selectedDescription: String = ""
-    var selectedPicker: String = ""
+    var selectedPicker: Int = -1
+    var selectedDate: NSDate = NSDate()
     
+    // values for picker TODO: New model with user entered values
     var typeList: [String] = ["Test 1", "Test 2", "Test 3"]
     
     // User fields
+    
     @IBOutlet weak var itemNameText: UITextField!
     @IBOutlet weak var borrowerNameText: UITextField!
     @IBOutlet weak var descText: UITextField!
@@ -41,25 +45,30 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         super.viewDidLoad()
                 
         // Set up type picker
+        
         typePicker.delegate = self
         typePicker.dataSource = self
         
         // Load existing item
+        
         if (existingItem != nil) {
-            // set title
+            // set title if editing an item
+            
             self.navigationItem.title = "Edit Item"
             
-            // set labels to local instance
+            // set details to local instance
+            
             itemNameText.text = selectedItemName
             borrowerNameText.text = selectedBorrowerName
             descText.text = selectedDescription
+            typePicker.selectRow(selectedPicker as Int, inComponent: 0, animated: false)
+            dueDatePicker.setDate(selectedDate, animated: false)
+            
         } else {
+            // set title if adding an item
+            
             self.navigationItem.title = "New Item"
         }
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        
     }
     
     @IBAction func save(sender: AnyObject) {
@@ -71,9 +80,13 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         // check if item already exists
         
         if (existingItem != nil) {
+            // if the item already exists, save item with new values
+            
             existingItem.setValue(itemNameText.text, forKey:"itemName")
             existingItem.setValue(borrowerNameText.text, forKey:"borrowerName")
             existingItem.setValue(descText.text, forKey:"desc")
+            existingItem.setValue(selectedPicker as NSNumber, forKey:"itemTypeID")
+            existingItem.setValue(dueDatePicker.date, forKey: "dueDate")
         } else {
             // create instance of data model
             
@@ -84,7 +97,7 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
             newItem.itemName = itemNameText.text
             newItem.borrowerName = borrowerNameText.text
             newItem.desc = descText.text
-            newItem.itemTypeID = 0
+            newItem.itemTypeID = selectedPicker as NSNumber
             newItem.createdDate = NSDate()
             newItem.dueDate = dueDatePicker.date
             newItem.isCompleted = false
@@ -113,6 +126,10 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
         // Dispose of any resources that can be recreated.
     }
     
+    /*
+     * Type Picker View
+     */
+    
     // Data Source methods:
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -128,17 +145,7 @@ class NewItemView: UIViewController, UIPickerViewDataSource, UIPickerViewDelegat
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // set selected item to typeList[row]
-        selectedPicker = typeList[row]
+        // set selected item in picker view to typeList[row]
+        selectedPicker = row
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }
