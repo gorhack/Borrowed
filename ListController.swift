@@ -32,6 +32,13 @@ class ListController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // Add both edit and settings to navigation bar
+        self.navigationItem.leftItemsSupplementBackButton = true;
+        var editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: nil);
+        var settingsButton = UIBarButtonItem(title: "Settings", style: .Plain, target: self, action: nil);
+        
+        self.navigationItem.leftBarButtonItems = [editButton, settingsButton];
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -127,10 +134,19 @@ class ListController: UITableViewController {
     }
     
 
+    @IBOutlet weak var editTable: UIBarButtonItem!
     
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+        if (editTable != nil) {
+            let item: AnyObject = itemList[fromIndexPath.row]
+            
+            itemList.removeAtIndex(fromIndexPath.row)
+            itemList.insert(item, atIndex: toIndexPath.row)
+        }
     }
     
 
